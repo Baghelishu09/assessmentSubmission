@@ -1,0 +1,23 @@
+/* history.css  -  Order history page */
+
+.c-no { font-weight: 600; font-variant-numeric: tabular-nums; }
+.c-date { white-space: nowrap; }
+
+/* "From" / "To" date filters */
+.toolbar > .date-field { flex: 0 1 190px; display: flex; align-items: center; gap: 6px; }
+.date-field span { font-size: 13px; color: var(--muted); }
+
+@media (max-width: 760px) {
+  /* Date filters sit side by side with the label on top */
+  .toolbar > .date-field { flex: 1 1 120px; flex-direction: column; align-items: stretch; gap: 2px; min-width: 0; }
+  .date-field input { min-width: 0; }
+
+  /* Row = order no. + total, customer + status, date + bill link */
+  .history-table tbody tr { grid-template-columns: 1fr auto; grid-template-areas: "no total" "cust status" "date act"; }
+  .history-table .c-no { grid-area: no; }
+  .history-table .c-total { grid-area: total; font-weight: 600; }
+  .history-table .c-cust { grid-area: cust; }
+  .history-table .c-status { grid-area: status; justify-self: end; }
+  .history-table .c-date { grid-area: date; font-size: 13px; }
+  .history-table .c-act { grid-area: act; }
+}

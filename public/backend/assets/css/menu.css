@@ -1,0 +1,58 @@
+/* menu.css  -  Menu / Food items page */
+
+.menu-layout { display: grid; grid-template-columns: minmax(0, 1fr) 264px; gap: 14px; align-items: start; }
+.menu-side { display: grid; gap: 14px; }
+.add-link { display: none; }           /* only needed when the form sits below the list */
+
+.c-name { font-weight: 600; }
+.c-cat { white-space: nowrap; }
+
+/* Unavailable items are dimmed */
+.menu-table tr:has(.switch input:not(:checked)) .c-name,
+.menu-table tr:has(.switch input:not(:checked)) .c-price { color: var(--muted); }
+
+/* Available / Unavailable switch (a styled checkbox, no JS) */
+.switch { position: relative; display: inline-flex; align-items: center; gap: 7px; cursor: pointer; white-space: nowrap; }
+.switch input { position: absolute; opacity: 0; pointer-events: none; }
+.switch .track { position: relative; width: 32px; height: 18px; border-radius: 99px; background: #c3cbc5; transition: background .15s; }
+.switch .track::after { content: ""; position: absolute; top: 2px; left: 2px; width: 14px; height: 14px; border-radius: 50%; background: #fff; transition: transform .15s; }
+.switch input:checked + .track { background: var(--ok); }
+.switch input:checked + .track::after { transform: translateX(14px); }
+.switch input:focus-visible + .track { outline: 2px solid var(--leaf-2); outline-offset: 2px; }
+.switch .state { font-size: 13px; color: var(--chili); }
+.switch .state::after { content: "Unavailable"; }
+.switch input:checked ~ .state { color: var(--ok); }
+.switch input:checked ~ .state::after { content: "Available"; }
+
+/* Add item form */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.form-grid .wide { grid-column: 1 / -1; }
+
+/* Categories */
+.cat-list { margin: 0; padding: 4px 12px; list-style: none; }
+.cat-list li { display: flex; justify-content: space-between; gap: 8px; padding: 6px 0; border-bottom: 1px solid #e9ede8; }
+.cat-list li:last-child { border-bottom: 0; }
+.cat-add { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid var(--line); }
+
+@media (max-width: 1000px) {
+  .menu-layout { grid-template-columns: minmax(0, 1fr); }
+  .menu-side { grid-template-columns: 1fr 1fr; align-items: start; }
+  .add-link { display: inline-flex; }
+}
+
+@media (max-width: 760px) {
+  .menu-side { grid-template-columns: 1fr; }
+
+  /* Row = name + price on top, category + switch + actions below */
+  .menu-table tbody tr { grid-template-columns: 1fr auto auto; grid-template-areas: "name name price" "cat status act"; }
+  .c-name { grid-area: name; }
+  .c-price { grid-area: price; font-weight: 600; }
+  .c-cat { grid-area: cat; font-size: 13px; }
+  .c-status { grid-area: status; }
+  .c-act { grid-area: act; }
+  .switch .state { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .switch .track, .switch .track::after { transition: none; }
+}

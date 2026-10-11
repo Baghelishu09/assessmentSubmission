@@ -1,0 +1,221 @@
+/* ==========================================================
+   common.css  -  shared by all 5 pages
+   Layout (side nav / bottom tabs), cards, buttons, forms,
+   tables, badges. Page specific styles live in their own file.
+   ========================================================== */
+
+:root {
+  --leaf: #143d2e;        /* nav, strong accents */
+  --leaf-2: #1d5240;
+  --paper: #f2f4ef;       /* page background */
+  --surface: #ffffff;
+  --ink: #1b2420;
+  --muted: #63706a;
+  --line: #d9dfd8;
+  --haldi: #f0b323;       /* primary action */
+  --haldi-dark: #d99c0b;
+  --chili: #b93a26;       /* delete, unavailable */
+  --ok: #1f7a4d;
+  --ok-bg: #e3f3ea;
+  --wait: #7a5600;
+  --wait-bg: #fdf1cc;
+  --radius: 6px;
+  --tabbar: 54px;         /* height of the mobile bottom nav */
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+[hidden] { display: none !important; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  display: grid;
+  grid-template-columns: 196px minmax(0, 1fr);
+  min-height: 100vh;
+  font: 14px/1.45 "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+h1, h2, h3, p { margin: 0; }
+a { color: var(--leaf-2); }
+
+:focus-visible { outline: 2px solid var(--leaf-2); outline-offset: 2px; }
+
+/* ---------- Navigation ---------- */
+.nav {
+  position: sticky;
+  top: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 14px 10px;
+  background: var(--leaf);
+}
+
+.brand {
+  padding: 4px 10px 14px;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.brand span { display: block; font-size: 12px; font-weight: 400; color: #a9c4b8; }
+
+.nav-link {
+  padding: 8px 10px;
+  border-left: 3px solid transparent;
+  border-radius: var(--radius);
+  color: #d5e3dc;
+  text-decoration: none;
+}
+.nav-link:hover { background: var(--leaf-2); color: #fff; }
+.nav-link.active { background: var(--leaf-2); border-left-color: var(--haldi); color: #fff; font-weight: 600; }
+.nav :focus-visible { outline-color: var(--haldi); }
+
+/* ---------- Page ---------- */
+.page { min-width: 0; padding: 18px 22px 28px; }
+
+.page-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.page-head > div { flex: 1 1 180px; min-width: 0; }
+.page-head h1 { font-size: 20px; line-height: 1.2; }
+.page-head p { margin-top: 2px; font-size: 13px; color: var(--muted); }
+
+.card { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); }
+.card-head { padding: 10px 12px; border-bottom: 1px solid var(--line); font-size: 14px; font-weight: 600; }
+.card-body { padding: 12px; }
+
+.muted { color: var(--muted); }
+.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+
+/* ---------- Buttons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 34px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--muted); }
+.btn:disabled { opacity: .5; cursor: not-allowed; }
+.btn-primary { background: var(--haldi); border-color: var(--haldi-dark); color: #2e2100; }
+.btn-primary:hover { background: var(--haldi-dark); border-color: var(--haldi-dark); }
+.btn-danger { color: var(--chili); }
+.btn-sm { height: 28px; padding: 0 9px; font-size: 13px; }
+
+/* ---------- Form controls ---------- */
+input[type="text"], input[type="search"], input[type="number"], input[type="date"], select {
+  width: 100%;
+  height: 34px;
+  padding: 0 9px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+input:focus-visible, select:focus-visible { outline-offset: 0; border-color: var(--leaf-2); }
+
+.field { display: grid; gap: 4px; }
+.field > span { font-size: 13px; font-weight: 600; }
+
+.toolbar { display: flex; flex-wrap: wrap; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.toolbar > * { flex: 1 1 140px; }
+.toolbar > .grow { flex: 3 1 200px; }
+
+/* Filter chips: plain radio buttons, styled */
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chips label { position: relative; }
+.chips input { position: absolute; opacity: 0; pointer-events: none; }
+.chips span {
+  display: block;
+  padding: 5px 11px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--surface);
+  cursor: pointer;
+}
+.chips input:checked + span { background: var(--leaf); border-color: var(--leaf); color: #fff; }
+.chips input:focus-visible + span { outline: 2px solid var(--leaf-2); outline-offset: 2px; }
+
+/* ---------- Tables ---------- */
+.table-wrap { overflow-x: auto; }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 8px 12px; text-align: left; vertical-align: middle; }
+.table th { background: #f7f9f5; border-bottom: 1px solid var(--line); font-size: 12px; font-weight: 600; color: var(--muted); white-space: nowrap; }
+.table td { border-bottom: 1px solid #e9ede8; }
+.table tbody tr:last-child td { border-bottom: 0; }
+.table tbody tr:hover { background: #fafbf8; }
+.table th.num, .table td.num { text-align: right; }
+
+.table-foot { padding: 8px 12px; border-top: 1px solid var(--line); font-size: 13px; color: var(--muted); }
+.empty { padding: 22px 12px; text-align: center; color: var(--muted); }
+
+.actions { display: flex; gap: 6px; justify-content: flex-end; }
+
+/* ---------- Badges ---------- */
+.badge { display: inline-block; padding: 2px 8px; border-radius: 99px; font-size: 12px; font-weight: 600; white-space: nowrap; }
+.badge.paid { background: var(--ok-bg); color: var(--ok); }
+.badge.pending { background: var(--wait-bg); color: var(--wait); }
+
+/* ---------- Mobile: side nav becomes bottom tabs ---------- */
+@media (max-width: 760px) {
+  body { display: block; padding-bottom: calc(var(--tabbar) + env(safe-area-inset-bottom)); }
+
+  .nav {
+    position: fixed;
+    inset: auto 0 0 0;
+    z-index: 20;
+    height: auto;
+    flex-direction: row;
+    gap: 0;
+    padding: 0 0 env(safe-area-inset-bottom);
+  }
+  .brand { display: none; }
+  .nav-link {
+    flex: 1;
+    display: grid;
+    place-items: center;
+    height: var(--tabbar);
+    padding: 0;
+    border-left: 0;
+    border-top: 3px solid transparent;
+    border-radius: 0;
+    font-size: 13px;
+  }
+  .nav-link.active { border-top-color: var(--haldi); }
+
+  .page { padding: 14px 12px 20px; }
+  .page-head h1 { font-size: 18px; }
+
+  /* 16px stops iOS from zooming in when a field is focused */
+  input[type="text"], input[type="search"], input[type="number"], input[type="date"], select { height: 38px; font-size: 16px; }
+  .btn { height: 38px; }
+  .btn-sm { height: 32px; }
+
+  /* Tables turn into compact stacked rows. Each page sets its own grid areas. */
+  .table thead { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .table tbody { display: block; }
+  .table tbody tr { display: grid; gap: 4px 10px; align-items: center; padding: 10px 12px; border-bottom: 1px solid #e9ede8; }
+  .table tbody tr:last-child { border-bottom: 0; }
+  .table td { padding: 0; border: 0; }
+  .hide-sm { display: none; }
+}
